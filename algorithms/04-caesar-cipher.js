@@ -4,7 +4,8 @@ function caesarCipher(text, num) {
 
   return text.split('')
     .map(character => {
-      const alphabetIndex = alphabet.indexOf(character);
+      const isUppercase = character === character.toUpperCase();
+      const alphabetIndex = alphabet.indexOf(isUppercase ? character.toLowerCase() : character);
 
       if (alphabetIndex >= 0) {
         let newIndex = (alphabetIndex + num) % alphabetLength;
@@ -13,7 +14,7 @@ function caesarCipher(text, num) {
           newIndex = alphabetLength + newIndex;
         }
 
-        return alphabet[newIndex];
+        return isUppercase ? alphabet[newIndex].toUpperCase() : alphabet[newIndex];
       }
 
       return character;
@@ -21,7 +22,7 @@ function caesarCipher(text, num) {
     .join('');
 }
 
-const originalText = 'abc';
+const originalText = 'abcD';
 const cipherText = caesarCipher(originalText, -28);
 
 console.log({
